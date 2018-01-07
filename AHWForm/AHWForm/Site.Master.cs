@@ -77,55 +77,45 @@ namespace AHWForm
             if(!this.IsPostBack)
             {
                 var categories = GetCategories();
-                
-                PopulateTreeView(categories, 0, null);
+
+                PopulateNodes(categories, CategoriesTreeView);
+                CategoriesTreeView.CollapseAll();
             }
+
         }
 
-        private void PopulateTreeView(List<Category> categories, int parentId, TreeNode treeNode)
-        {
-            try
-            {
-                Page.Header.Title = "Organogram Picker";
-                
+       
 
-                foreach(Category item in categories)
+        private void PopulateNodes(List<Category> categories, TreeView tw)
+        {
+            foreach (var item in categories)
+            {
+                if (item.ParentCategoryId == null)
                 {
-                    TreeNode rootNode = new TreeNode(item.Id.ToString(), item.Name);
-                    CategoriesTreeView.Nodes.Add(rootNode);
+                    var rootNode= new TreeNode(item.Name, item.Id.ToString());
+                    AddChildren(categories, rootNode);
+                    tw.Nodes.Add(rootNode);
                 }
-               
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                
             }
 
+            //if
         }
 
-        private void BindChilds(List<Category> categories, TreeNode node, int parentNodeID)
+        private void AddChildren(List<Category> categories, TreeNode activeTreeNode)
         {
-
-            string str = "Select NodeID as ID , Name   From RAHierarchyNode where ParentNodeID=" + parentNodeID;
-
-            foreach(Category item in categories) { 
-                TreeNode childNode = new TreeNode(item.Id.ToString(), item.Name);
-                node.ChildNodes.Add(childNode);
-            }
-
-        }
-
-        protected void CategoriesTreeView_SelectedNodeChanged(object sender, EventArgs e)
-        {
-            if (!(CategoriesTreeView.SelectedNode.ChildNodes.Count > 0))
+            foreach (var item in categories)
             {
-                var categories = GetCategories();
-                BindChilds(categories, CategoriesTreeView.SelectedNode, Convert.ToInt32(CategoriesTreeView.SelectedNode.Value));
-                CategoriesTreeView.SelectedNode.Expand();
+                if (item.ParentCategoryId == Int32.Parse(activeTreeNode.Value))
+                {
+                    TreeNode tn = new TreeNode(item.Name,item.Id.ToString());
+                    
+                    AddChildren(categories,tn);
+                    activeTreeNode.ChildNodes.Add(tn);
+                }
             }
+            
         }
-
-
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
@@ -133,22 +123,17 @@ namespace AHWForm
 
         protected List<Category> GetCategories()
         {
-
-            //return categoryContext.Categories;
             CategoryContext catContext = new CategoryContext();
             var q = catContext.Categories.ToList();
-            //var q = catContext.Categories.Select(reg => reg);
-
-            //DataTable result = query.CopyToDataTable<DataRow>();
-
-            
-           
-            return q;
-                    
-            
+            return q;  
         }
 
-        
+        protected void CategoriesTreeView_SelectedNodeChanged(object sender, EventArgs e)
+        {
+            var selectedItem = CategoriesTreeView.SelectedValue;
+            //LoadItemPage
+
+        }
     }
 
 }

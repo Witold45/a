@@ -11,6 +11,8 @@ namespace AHWForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Eception
+            int s = Int32.Parse(Request.QueryString["category"]);
 
         }
     }

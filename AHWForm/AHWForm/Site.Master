@@ -75,8 +75,7 @@
         </div>
         <div class="navigation_tree">
             <asp:TreeView ID="CategoriesTreeView"  runat="server"  Font-Names="Verdana" Font-Size="12px"
-                                                    ForeColor="#F48110" SkinID="NonPostBackTree" Height="296px" Width="415px" SelectedNodeStyle-ForeColor="blue"
-                                                    ShowCheckBoxes="All" OnSelectedNodeChanged="CategoriesTreeView_SelectedNodeChanged">
+                                                    ForeColor="#F48110" Height="193px" Width="196px" SelectedNodeStyle-ForeColor="blue" OnSelectedNodeChanged="CategoriesTreeView_SelectedNodeChanged" >
                 <LeafNodeStyle ImageUrl="~/Images/ArrowColor.gif" />
                                                     <NodeStyle CssClass="tree_node_text" />
                                                     <ParentNodeStyle CssClass="tree_node_text" />
@@ -90,6 +89,7 @@
                     
                 
                 <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    
                 </asp:ContentPlaceHolder>
                 <hr />
             
