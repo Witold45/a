@@ -126,7 +126,12 @@ namespace AHWForm
             return ls;       
         }
 
-        
+
+        protected void CategoriesTreeView_OnSelectedNodeChanged(object sender, EventArgs e)
+        {
+            var value = CategoriesTreeView.SelectedNode.Value;
+            Response.Redirect("/AuctionListPage?category=" + value);
+        }
     }
 
 }

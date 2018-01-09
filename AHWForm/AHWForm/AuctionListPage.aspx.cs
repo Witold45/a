@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.Entity;
 using AHWForm.Models;
-using LINQPad;
+
 
 namespace AHWForm
 {
@@ -15,37 +15,58 @@ namespace AHWForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             AuctionList.EnableDynamicData(typeof(Auction));
             
         }
 
-        public IQueryable<AHWForm.Models.Auction> AuctionList_GetData()
+        public IQueryable<Auction> AuctionList_GetData()
         {
             //TODO Categories fetch
             int? value = null;
             string v = Request.QueryString["category"];
-            if(value!=null)
+            if(v!=null)
             value = Int32.Parse(v);
             
             AuctionContext auctionContext = new AuctionContext();
-            IOrderedQueryable<Auction> ls;
-            //if(value == null)
-            //{ 
-                 ls = auctionContext.Auctions.OrderByDescending(x=>x.CategoryId);
-            //}
-            //else
-            //{
-            //    List<int> lstOfCategories = GetChildrens(auctionContext.Auctions.OrderByDescending(x => x.CategoryId));
-            //    ls = auctionContext.Auctions.Where(x => lstOfCategories.Contains(Convert.ToInt32(x.CategoryId))).OrderByDescending(x=>x.CategoryId);
-            //}
+            IQueryable<Auction> ls;
+            
+            List<int> allCats = GetChildrens(value);
+            allCats.Add((int)value);
+            List<int?> allCatsN = allCats.ConvertAll<int?>(delegate(int x) { return x; });
+            var temp = allCats.Contains(7);
+            ls = auctionContext.Auctions.Where(t => allCatsN.Contains(t.CategoryId));
+            var temp2 = ls.ToList();
             return ls;
         }
 
-        private List<int> GetChildrens(IOrderedQueryable<Auction> orderedQueryable)
+        private List<int> GetChildrens(int? id)
         {
-            throw new NotImplementedException();
+            AuctionContext ac = new AuctionContext();
+            Category cat = ac.Categories.Where(x => x.Id == id).SingleOrDefault();
+            List<int> allChildrenList = new List<int>();
+            //if(cat.Id!=null)
+            allChildrenList = FoundChildren(allChildrenList, cat.Id,cat, ac);
+            return allChildrenList;
         }
 
-        
+
+        private List<int> FoundChildren(List<int> listOfCatId, int parentId, Category cat, AuctionContext ac)
+        {
+            List<Category> categories = ac.Categories.ToList();
+            foreach (var item in categories)
+            {
+                if (item.ParentCategoryId == parentId)
+                {
+                    listOfCatId.Add(item.Id);
+                    //if(cat.Id!=null)
+                    listOfCatId.AddRange(FoundChildren(listOfCatId, item.Id, cat, ac));
+                }
+                    
+            }
+            return listOfCatId;
+        }
+
     }
 }

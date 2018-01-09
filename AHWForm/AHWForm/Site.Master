@@ -74,13 +74,14 @@
             </div>
         </div>
         <div class="navigation_tree">
-            <asp:TreeView ID="CategoriesTreeView"  runat="server"  Font-Names="Verdana" Font-Size="12px"
+            <asp:TreeView ID="CategoriesTreeView"  runat="server"  Font-Names="Verdana" Font-Size="12px" OnSelectedNodeChanged="CategoriesTreeView_OnSelectedNodeChanged"
                                                     ForeColor="#F48110" SkinID="NonPostBackTree" Height="296px" Width="415px" SelectedNodeStyle-ForeColor="blue" >
                 <LeafNodeStyle ImageUrl="~/Images/ArrowColor.gif" />
                                                     <NodeStyle CssClass="tree_node_text" />
                                                     <ParentNodeStyle CssClass="tree_node_text" />
                                                     <RootNodeStyle CssClass="tree_node_text" />
                                                     <HoverNodeStyle CssClass="tree_node_text" />
+                
                 
             </asp:TreeView>    
         </div>

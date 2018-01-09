@@ -7,10 +7,27 @@ namespace AHWForm
 {
     public static class ExtMethods
     {
-        public static IEnumerable<T> Flatten<T, R>(this IEnumerable<T> source, Func<T, R> recursion) where R : IEnumerable<T>
+        public static IEnumerable<T> Flatten<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> before, Func<T, IEnumerable<T>> after)
         {
-            return source.SelectMany(x => (recursion(x) != null && recursion(x).Any()) ? recursion(x).Flatten(recursion) : null)
-                         .Where(x => x != null);
+            foreach (var item in items)
+            {
+                if (before != null)
+                {
+                    foreach (var b in before(item))
+                    {
+                        yield return b;
+                    }
+                }
+                yield return item;
+                if (after != null)
+                {
+                    foreach (var a in after(item))
+                    {
+                        yield return a;
+                    }
+                }
+            }
         }
+
     }
 }
