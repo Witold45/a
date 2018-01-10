@@ -24,9 +24,11 @@ namespace AHWForm
             if (Id != null)
             {
                 BidContext bidContext= new BidContext();
+                //BidsModel temp = new BidsModel();
+
                 BidsModel bidsModel = new BidsModel()
                 {
-                    AuctionId = Int32.Parse(Id),
+                    AuctionId = Id,
                     UserId = HttpContext.Current.User.Identity.GetUserId(),
                     Id = Guid.NewGuid().ToString(),
                     Value = Decimal.Parse(price.Text),
@@ -34,7 +36,7 @@ namespace AHWForm
 
                 bidContext.Bids.Add(bidsModel);
                 bidContext.SaveChanges();
-                
+
 
             }
         }

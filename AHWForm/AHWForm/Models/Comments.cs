@@ -10,9 +10,9 @@ namespace AHWForm.Models
      public class Comments
      {
         [ScaffoldColumn(false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [ScaffoldColumn(false)]
-        public int AuctionId {get;set;}
+        public string AuctionId {get;set;}
         [ScaffoldColumn(false)]
         public string BuyerId { get; set; }
         [ScaffoldColumn(false)]
@@ -23,7 +23,7 @@ namespace AHWForm.Models
     public class CommentsView
     {
         [ScaffoldColumn(false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string AuctionUrl { get; set; }
         public string AuctionTitle { get; set; }
         public string BuyerUrl { get; set; }
@@ -39,5 +39,6 @@ namespace AHWForm.Models
         public DbSet<Comments> Comment { get; set; }
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<BidsModel> Bids { get; set; }
     }
 }

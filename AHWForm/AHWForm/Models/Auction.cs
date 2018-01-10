@@ -10,9 +10,9 @@ namespace AHWForm.Models
     public class Auction
     {
         [ScaffoldColumn(false)]        
-        public int Id { get; set; }
+        public string Id { get; set; }
         [ScaffoldColumn(false)]
-        public int? CategoryId { get; set; }
+        public string CategoryId { get; set; }
         public string Title { get; set; }
         public decimal StartPrice { get; set; }
         public decimal EndingPrice { get; set; }
@@ -27,6 +27,8 @@ namespace AHWForm.Models
         //public List<Bid> Bids { get; set; }
         [ScaffoldColumn(false)]
         public string CreatorId { get; set; } 
+        [ScaffoldColumn(false)]
+        public string WinnerId { get; set; }
         public string LongDescription { get; set; }
     }
 

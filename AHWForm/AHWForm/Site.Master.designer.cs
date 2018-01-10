@@ -13,6 +13,33 @@ namespace AHWForm {
     public partial class SiteMaster {
         
         /// <summary>
+        /// AppNameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AppNameLabel;
+        
+        /// <summary>
+        /// CommentSectionLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CommentSectionLabel;
+        
+        /// <summary>
+        /// CreateAuctionLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CreateAuctionLabel;
+        
+        /// <summary>
         /// CategoriesTreeView control.
         /// </summary>
         /// <remarks>

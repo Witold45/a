@@ -10,9 +10,9 @@ namespace AHWForm.Models
     public class Category
     {
         [ScaffoldColumn(false)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [ScaffoldColumn(false)]
-        public int? ParentCategoryId { get; set; }
+        public string ParentCategoryId { get; set; }
         public string Name { get; set; }
     }
 

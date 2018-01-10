@@ -11,7 +11,7 @@ namespace AHWForm.Models
         public string Id { get; set; }
         public decimal Value { get; set; }
         public string UserId { get; set; }
-        public int AuctionId { get; set; }
+        public string AuctionId { get; set; }
     }
 
     public class BidContext : DbContext

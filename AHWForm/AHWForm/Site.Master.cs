@@ -19,7 +19,8 @@ namespace AHWForm
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
-        
+        private System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = true };
+
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -51,6 +52,25 @@ namespace AHWForm
             }
 
             Page.PreLoad += master_Page_PreLoad;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+        }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            AuctionContext ac = new AuctionContext();
+            
+            foreach(Auction item in ac.Auctions)
+            {
+                if(DateTime.Now >= item.DateCreated.AddDays(item.ExpiresIn))
+                {
+                    item.IsEnded = true;
+                }
+
+            }
+            ac.SaveChanges();
+
+
         }
 
         protected void master_Page_PreLoad(object sender, EventArgs e)
@@ -94,7 +114,6 @@ namespace AHWForm
                     AddChildren(categories, rootNode);
                     tw.Nodes.Add(rootNode);
                 }
-
             }
         }
 
@@ -102,7 +121,7 @@ namespace AHWForm
         {
             foreach (var item in categories)
             {
-                if (item.ParentCategoryId == Int32.Parse(activeTreeNode.Value))
+                if (item.ParentCategoryId == activeTreeNode.Value)
                 {
                     TreeNode tn = new TreeNode(item.Name, item.Id.ToString());
 
@@ -132,6 +151,8 @@ namespace AHWForm
             var value = CategoriesTreeView.SelectedNode.Value;
             Response.Redirect("/AuctionListPage?category=" + value);
         }
+
+        
     }
 
 }

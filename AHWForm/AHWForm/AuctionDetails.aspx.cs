@@ -49,9 +49,9 @@ namespace AHWForm
         {
             try
             {
-                int idInt = Int32.Parse(id);
+                
                 AuctionContext auctionContext = new AuctionContext();
-                Auction actAuction = auctionContext.Auctions.Where(s => s.Id == idInt).SingleOrDefault();
+                Auction actAuction = auctionContext.Auctions.Where(s => s.Id == id).SingleOrDefault();
                 return actAuction;
             }
             catch

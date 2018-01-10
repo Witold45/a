@@ -29,8 +29,6 @@ namespace AHWForm
         {
             CommentList.DataSource = comments;
             CommentList.DataBind();
-
-           
         }
 
         private List<CommentsView> GetComments(string id)
@@ -62,7 +60,7 @@ namespace AHWForm
             return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(creatorId).UserName;
         }
 
-        private Auction GetAuctionObject(int auctionId)
+        private Auction GetAuctionObject(string auctionId)
         {
             AuctionContext auctionContext = new AuctionContext();
             Auction auction = auctionContext.Auctions.Where(s => s.Id == auctionId).SingleOrDefault();

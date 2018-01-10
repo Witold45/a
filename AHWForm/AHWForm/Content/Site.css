@@ -90,3 +90,65 @@ input[type="select"] {
     width:100%;
     text-align: center;
 }
+
+.MainCreateAuction{
+    height: auto;
+    width:100%;
+}
+
+.upperBar{
+    height: 100px;
+    width:100%;
+    
+    
+     
+}
+.middle{
+    
+    width:100%;
+    height:auto;
+    padding: 2%;
+    overflow: auto;
+   
+  
+}
+.downBar{
+    
+    width:100%;
+    padding: 2%;
+    
+    
+ 
+}
+
+.AuctionCreateTitleDiv{
+    height: 100px;
+    width: 100%;
+    margin:auto;
+    padding:10px;
+    display: flex;
+justify-content: center; /* align horizontal */
+align-items: center; /* align vertical */
+   border:3px solid;
+}
+
+.LeftMiddleBar{
+    height: 100%;
+    width:65%;
+    z-index:1;
+    top:0;
+    left:0;
+    float:left;
+    border:3px solid;
+    
+}
+
+.RightMiddleBar{
+    height: 100%;
+    width:30%;
+    z-index:1;
+    top:0;
+    left:0;
+    float:right;
+    border:3px solid;
+}
