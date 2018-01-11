@@ -22,6 +22,15 @@ namespace AHWForm {
         protected global::System.Web.UI.WebControls.Label AuctionCreateTitleLabel;
         
         /// <summary>
+        /// AuctionTitleTextBoxLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AuctionTitleTextBoxLabel;
+        
+        /// <summary>
         /// AuctionTitleTextBox control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace AHWForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AuctionTitleTextBox;
+        
+        /// <summary>
+        /// MinimalPriceTextBoxLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MinimalPriceTextBoxLabel;
         
         /// <summary>
         /// MinimalPriceTextBox control.
@@ -40,13 +58,31 @@ namespace AHWForm {
         protected global::System.Web.UI.WebControls.TextBox MinimalPriceTextBox;
         
         /// <summary>
-        /// ExpiresInTextBox control.
+        /// ExpiresInTextBoxLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ExpiresInTextBox;
+        protected global::System.Web.UI.WebControls.Label ExpiresInTextBoxLabel;
+        
+        /// <summary>
+        /// ExpiresInDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ExpiresInDropDown;
+        
+        /// <summary>
+        /// DescriptionTextBoxLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DescriptionTextBoxLabel;
         
         /// <summary>
         /// DescriptionTextBox control.

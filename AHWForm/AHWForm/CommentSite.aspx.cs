@@ -16,6 +16,7 @@ namespace AHWForm
         {
             if (!Page.IsPostBack)
             {
+
                 List<CommentsView> comments = GetComments(Request.QueryString["Id"]);
                 if (comments != null)
                     fetchData(comments);

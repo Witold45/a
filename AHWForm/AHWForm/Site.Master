@@ -47,7 +47,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" runat="server" href="~/"><asp:Label runat="server" Text="<%$ Resources:Resource, ApplicationName %>" ID="AppNameLabel"/></a>
-                    <a class="navbar-brand" runat="server" href="~/CommentSite"><asp:Label runat="server" Text="<%$ Resources:Resource, CommentSectionName %>" ID="CommentSectionLabel"/></a>
+                    <a class="navbar-brand" runat="server" href="~/AccountComments"><asp:Label runat="server" Text="<%$ Resources:Resource, CommentSectionName %>" ID="CommentSectionLabel"/></a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -85,7 +85,7 @@
                 
             </asp:TreeView>    
         </div>
-        <div class="container body-content" style="margin-left: 200px">
+        <div class="container_bodycontent">
                 
                     
                 

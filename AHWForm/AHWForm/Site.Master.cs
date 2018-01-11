@@ -11,6 +11,7 @@ using AHWForm.Models;
 using System.Linq;
 using System.Data;
 using System.Data.Linq;
+using MoreLinq;
 
 namespace AHWForm
 {
@@ -59,18 +60,61 @@ namespace AHWForm
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             AuctionContext ac = new AuctionContext();
-            
+            BidContext bc = new BidContext();
             foreach(Auction item in ac.Auctions)
             {
                 if(DateTime.Now >= item.DateCreated.AddDays(item.ExpiresIn))
                 {
                     item.IsEnded = true;
+                    item.WinnerId = SetWinnerID(item);
+                }
+
+                BidsModel MaxBid = GetMaxBidOfAuction(item.Id, bc, item);
+                if(MaxBid != null)
+                {
+                    item.EndingPrice = MaxBid.Value;
                 }
 
             }
+
+
             ac.SaveChanges();
 
 
+        }
+
+        private BidsModel GetMaxBidOfAuction(string id, BidContext context, Auction auction)
+        {
+            List<BidsModel> bids = context.Bids.Where(x => x.AuctionId == id).ToList();
+            if (bids.Count > 0)
+            {
+                BidsModel bm = bids.MaxBy(x => x.Value);
+                return bm;
+            }
+            else
+                return null;
+        }
+
+        private string SetWinnerID(Auction auc)
+        {
+            BidContext bc = new BidContext();
+            BidsModel bm = GetMaxBidOfAuction(auc.Id, bc);
+            if (bm != null)
+                return bm.AuctionId;
+            else
+                return null;
+        }
+
+        private BidsModel GetMaxBidOfAuction (string id, BidContext context)
+        {
+            List<BidsModel> bids = context.Bids.Where(x => x.AuctionId == id).ToList();
+            if (bids.Count > 0)
+            {
+                BidsModel bm = bids.MaxBy(x => x.Value);
+                return bm;
+            }
+            else
+                return null;
         }
 
         protected void master_Page_PreLoad(object sender, EventArgs e)

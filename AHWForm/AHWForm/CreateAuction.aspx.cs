@@ -16,9 +16,15 @@ namespace AHWForm
             if (!this.IsPostBack)
             {
                 var categories = GetCategories();
-
                 PopulateNodes(categories, NewAuctionTreeView);
                 NewAuctionTreeView.CollapseAll();
+                for(int i = 1; i < 14; i++)
+                {
+                    ExpiresInDropDown.Items.Add(i.ToString());
+                }
+                
+                
+                
             }
         }
 
@@ -37,7 +43,7 @@ namespace AHWForm
                     StartPrice = Decimal.Parse(MinimalPriceTextBox.Text),
                     EndingPrice = Decimal.Parse(MinimalPriceTextBox.Text),
                     DateCreated = DateTime.Now,
-                    ExpiresIn = Convert.ToInt32(ExpiresInTextBox.Text),
+                    ExpiresIn = Convert.ToInt32(ExpiresInDropDown.SelectedItem.Value),
                     Description = DescriptionTextBox.Text,
                     IsEnded = false,
                     CreatorId = HttpContext.Current.User.Identity.GetUserId(),
@@ -46,10 +52,11 @@ namespace AHWForm
 
                 auctionContext.Auctions.Add(auction);
                 auctionContext.SaveChanges();
+                Response.Redirect("/AuctionDetails?Id=" + auction.Id);
             }
             else
             {
-                //TODO redirect
+                Response.Redirect("/Account/Login");
             }
         }
 

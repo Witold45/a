@@ -31,8 +31,25 @@ namespace AHWForm
             AuctionTitle.Text = auction.Title;
             AuctionShortDescription.Text = auction.Description;
             AuctionLongDescription.Text = auction.LongDescription;
+            
             Price.Text = auction.EndingPrice.ToString("G");
             CreatorName.Text = GetUserNameByID(auction.CreatorId);
+            AuctionCreatedLabel.Text = auction.DateCreated.ToString();
+            if (!auction.IsEnded) {
+                AuctionExpiresLabel.Text = auction.DateCreated.AddDays(auction.ExpiresIn).ToString();
+                if (auction.CreatorId != HttpContext.Current.User.Identity.GetUserId())
+                    Bid.Visible = true;
+                else
+                    Bid.Visible = false;
+                AuctionExpiresLabel.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                AuctionExpiresLabel.Text = GetLocalResourceObject("AuctionEndedText").ToString();
+                AuctionExpiresLabel.ForeColor = System.Drawing.Color.Red;
+                Bid.Visible = false;
+            }
+
         }
 
         private string GetUserNameByID(string creatorId)
@@ -69,5 +86,7 @@ namespace AHWForm
             else
                 Response.Redirect("Bid?Id=" + (Request.QueryString["Id"]));
         }
+
+
     }
 }

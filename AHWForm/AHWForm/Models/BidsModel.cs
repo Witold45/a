@@ -17,6 +17,6 @@ namespace AHWForm.Models
     public class BidContext : DbContext
     {
         public DbSet<BidsModel> Bids { get; set; }
-     
+        public DbSet<Auction> Auctions { get; set; }
     }
 }

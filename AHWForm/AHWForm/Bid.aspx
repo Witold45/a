@@ -3,7 +3,7 @@
 
 
     <asp:Button ID="BidSecond" runat="server" Text="Button" OnClick="BidSecond_Click" />
-    <asp:TextBox ID="price" runat="server"></asp:TextBox>
+    <asp:TextBox ID="priceTextBox" runat="server"></asp:TextBox>
 
 
 </asp:Content>

@@ -123,7 +123,85 @@
   <data name="AuctionCreateTitleLabelResource1.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="AuctionCreateTitleLabelResource2.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AuctionCreateTitleLabelResource2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AuctionTitleTextBoxLabelResource1.Text" xml:space="preserve">
+    <value>Auction title:</value>
+  </data>
+  <data name="AuctionTitleTextBoxLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AuctionTitleTextBoxResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AuctionTitleTextBoxResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DescriptionLongTextBoxResource1.Text" xml:space="preserve">
+    <value>Long description:</value>
+  </data>
+  <data name="DescriptionLongTextBoxResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DescriptionTextBoxLabelResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DescriptionTextBoxLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DescriptionTextBoxResource1.Text" xml:space="preserve">
+    <value>Short description:</value>
+  </data>
+  <data name="DescriptionTextBoxResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExpiresInTextBoxLabelResource1.Text" xml:space="preserve">
+    <value>Auction expires in:</value>
+  </data>
+  <data name="ExpiresInTextBoxLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExpiresInTextBoxResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ExpiresInTextBoxResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MinimalPriceTextBoxLabelResource1.Text" xml:space="preserve">
+    <value>Minimal price:</value>
+  </data>
+  <data name="MinimalPriceTextBoxLabelResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MinimalPriceTextBoxResource1.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MinimalPriceTextBoxResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NewAuctionTreeViewResource1.CollapseImageToolTip" xml:space="preserve">
+    <value>Collapse {0}</value>
+  </data>
+  <data name="NewAuctionTreeViewResource1.ExpandImageToolTip" xml:space="preserve">
+    <value>Expand {0}</value>
+  </data>
+  <data name="NewAuctionTreeViewResource1.SkipLinkText" xml:space="preserve">
+    <value>Skip Navigation Links.</value>
+  </data>
+  <data name="NewAuctionTreeViewResource1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="PageResource1.Title" xml:space="preserve">
-    <value>Create Auction</value>
+    <value>- My ASP.NET Application</value>
+  </data>
+  <data name="PassNewAuctionButtonResource1.Text" xml:space="preserve">
+    <value>Create auction</value>
+  </data>
+  <data name="PassNewAuctionButtonResource1.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

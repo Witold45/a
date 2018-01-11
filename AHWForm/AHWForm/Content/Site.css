@@ -9,7 +9,9 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    margin-left: 200px;
+    
+    
+    width:auto;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -17,6 +19,13 @@ body {
 */
 .dl-horizontal dt {
     white-space: normal;
+}
+
+.container_bodycontent{
+    margin-left:200px;
+    float:left;
+    width:100%;
+    border-left: 1px solid;
 }
 
 .navigation_tree {
@@ -52,32 +61,38 @@ input[type="select"] {
     }
 }
 
+
 .UpperInfo{
-    height: 200px;
+    height: auto;
+    width:100%;
+    border-bottom:1px solid;
+}
+
+.PhotoAndRightBar{
+    height:300px;
     width:100%;
 }
 
 .Photo{
     height: 100%;
-    width:30%;
-    z-index:1;
-    top:0;
-    left:0;
+    width:60%;
     float:left;
+    border-right:1px solid;
 }
 
 .BasicInfo{
     height: 100%;
-    width:70%;
-    z-index:1;
-    top:0;
-    left:0;
+    width:40%;
     float: right;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .MiddleInfo{
     height: auto;
     width: 100%;
+    border-bottom:1px solid;
 }
 
 .LowerInfo{
@@ -87,8 +102,13 @@ input[type="select"] {
 
 .Title{
     height: 100px;
-    width:100%;
-    text-align: center;
+    width: 100%;
+    margin:auto;
+    padding:10px;
+    display: flex;
+justify-content: center; /* align horizontal */
+align-items: center; /* align vertical */
+   border-bottom:1px solid;
 }
 
 .MainCreateAuction{
@@ -108,7 +128,7 @@ input[type="select"] {
     width:100%;
     height:auto;
     padding: 2%;
-    overflow: auto;
+    
    
   
 }
@@ -119,6 +139,13 @@ input[type="select"] {
     
     
  
+}
+
+.AuctionText{
+    min-height: 300px;
+    min-width: 100%;
+    resize: none;
+
 }
 
 .AuctionCreateTitleDiv{
@@ -135,9 +162,8 @@ align-items: center; /* align vertical */
 .LeftMiddleBar{
     height: 100%;
     width:65%;
-    z-index:1;
-    top:0;
-    left:0;
+    
+
     float:left;
     border:3px solid;
     
@@ -146,9 +172,20 @@ align-items: center; /* align vertical */
 .RightMiddleBar{
     height: 100%;
     width:30%;
-    z-index:1;
-    top:0;
-    left:0;
+
     float:right;
     border:3px solid;
+}
+
+.BidButtonContainer{
+    float:left;
+    position:relative;
+    left:20%;
+    bottom:10%;
+    margin-top: auto;
+}
+.BidButton{
+    min-width:200px;
+    min-height:50px;
+    width:70%;
 }

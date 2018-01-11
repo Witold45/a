@@ -22,6 +22,15 @@ namespace AHWForm {
         protected global::System.Web.UI.WebControls.Label AuctionTitle;
         
         /// <summary>
+        /// PriceLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PriceLabel;
+        
+        /// <summary>
         /// Price control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,22 @@ namespace AHWForm {
         protected global::System.Web.UI.WebControls.Label Price;
         
         /// <summary>
-        /// Bid control.
+        /// Currency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Bid;
+        protected global::System.Web.UI.WebControls.Label Currency;
+        
+        /// <summary>
+        /// CreatorNameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CreatorNameLabel;
         
         /// <summary>
         /// CreatorName control.
@@ -56,6 +74,51 @@ namespace AHWForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label AuctionShortDescription;
+        
+        /// <summary>
+        /// AuctionCreated control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AuctionCreated;
+        
+        /// <summary>
+        /// AuctionCreatedLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AuctionCreatedLabel;
+        
+        /// <summary>
+        /// AuctionExpires control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AuctionExpires;
+        
+        /// <summary>
+        /// AuctionExpiresLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AuctionExpiresLabel;
+        
+        /// <summary>
+        /// Bid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Bid;
         
         /// <summary>
         /// AuctionLongDescription control.
