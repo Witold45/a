@@ -2,7 +2,11 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-
+    
+    <div class="body-content">
+        
+              <asp:Image ID="Image1" CssClass="main-page-image" runat="server" ImageUrl="Images/UnderConstruction.jpg" />
+    </div>
     
 
 </asp:Content>

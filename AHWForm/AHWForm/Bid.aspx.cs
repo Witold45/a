@@ -13,9 +13,13 @@ namespace AHWForm
 {
     public partial class Bid : System.Web.UI.Page
     {
+        BidContext bidContext = new BidContext();
+        private string Id;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            Id = Request.QueryString["Id"];
+            if (!CheckIfAuctionExist(Id,bidContext))
+                Response.Redirect("/");
 
         }
 
@@ -23,14 +27,10 @@ namespace AHWForm
         {
             //ToRefactor
             //Add code that prevent bidCreator from bidding his own auction
-            string Id = Request.QueryString["Id"];
-            if (!String.IsNullOrEmpty(Id))
-            {
                 if (!System.Text.RegularExpressions.Regex.IsMatch(priceTextBox.Text, "[^0-9]"))
                 {
                     if (PriceRange(priceTextBox.Text))
-                    {
-                        BidContext bidContext = new BidContext();
+                    {  
                         Auction auction = bidContext.Auctions.Where(x => x.Id == Id).SingleOrDefault();
                     decimal price = Decimal.Parse(priceTextBox.Text);   
 
@@ -47,6 +47,7 @@ namespace AHWForm
 
                         bidContext.Bids.Add(bidsModel);
                         bidContext.SaveChanges();
+                        
                         Response.Redirect("/AuctionDetails?Id=" + Id);
                         }
                     else
@@ -59,13 +60,12 @@ namespace AHWForm
                 else
                 {
                     //throw info that format is wrong
-                }
-            }
-            else
-            {
-                
-            }
+                }       
+        }
 
+        private bool CheckIfAuctionExist(string id, BidContext bidContext)
+        {
+            return bidContext.Auctions.Any(x => x.Id == id);
         }
 
         private bool PriceRange(string text)

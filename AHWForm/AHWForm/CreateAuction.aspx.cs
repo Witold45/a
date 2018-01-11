@@ -13,6 +13,9 @@ namespace AHWForm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!User.Identity.IsAuthenticated)
+                RedirectToLoginPage();
+            
             if (!this.IsPostBack)
             {
                 var categories = GetCategories();
@@ -21,14 +24,14 @@ namespace AHWForm
                 for(int i = 1; i < 14; i++)
                 {
                     ExpiresInDropDown.Items.Add(i.ToString());
-                }
-                
-                
-                
+                }                
             }
         }
 
-        
+        private void RedirectToLoginPage()
+        {
+            Response.Redirect("/Account/Login");
+        }
 
         protected void PassNewAuctionButton_Click(object sender, EventArgs e)
         {

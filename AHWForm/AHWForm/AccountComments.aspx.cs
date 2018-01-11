@@ -7,91 +7,67 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AHWForm.Classes_And_Interfaces;
 
 namespace AHWForm
 {
-    public partial class AccountComments : System.Web.UI.Page
+    public partial class AccountComments : System.Web.UI.Page, IExtensionMethods 
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!User.Identity.IsAuthenticated)
+                RedirectToLoginPage();
             CommentList.DataSource = AuctionList_GetData();
             CommentList.DataBind();
 
         }
 
-        public List<ExtendentComments> AuctionList_GetData()
+        private List<ExtendentComments> AuctionList_GetData()
         {
+            //returns list of comments connected to user
             CommentsContext commentsContext = new CommentsContext();
-            ID = HttpContext.Current.User.Identity.GetUserId();
+            string ID = HttpContext.Current.User.Identity.GetUserId();
             List<Auction> assAuctionList = GetListOfAssAuctions(ID, commentsContext).ToList();
             List<ExtendentComments> extendentCommentsList = new List<ExtendentComments>();
+
             foreach(Auction item in assAuctionList)
             {
                 ExtendentComments row = new ExtendentComments()
                 {
                     AuctionTitle = item.Title,
                     AuctionUrl = "AuctionDetails.aspx?Id=" + item.Id,
-                    //BuyerUrl = "CommentSite.aspx?Id=" + item.BuyerId,
                     SellerUrl = "CommentSite.aspx?Id=" + item.CreatorId,
-                    SellerName = GetUserNameByID(item.CreatorId),
+                    SellerName = ExtensionMethods.GetUserNameByID(item.CreatorId),
                 };
                 if (item.IsEnded)
                 {
-                    row.Id = GetCommentFromAuction(item.Id, ID, commentsContext).Id;
-                    row.Rate = GetCommentFromAuction(item.Id, ID, commentsContext).Rate;
-                    row.Comment = GetCommentFromAuction(item.Id, ID, commentsContext).Description;
+                    row.Id = ExtensionMethods.GetCommentFromAuction(item.Id, ID, commentsContext).Id;
+                    row.Rate = ExtensionMethods.GetCommentFromAuction(item.Id, ID, commentsContext).Rate;
+                    row.Comment = ExtensionMethods.GetCommentFromAuction(item.Id, ID, commentsContext).Description;
                 }
                 extendentCommentsList.Add(row);
             }
             return extendentCommentsList;
         }
 
-        private Comments GetCommentFromAuction(string auctionId, string userId, CommentsContext context)
-        {
-            return context.Comment.Where(x => x.AuctionId == auctionId && x.BuyerId == userId).SingleOrDefault();
-        }
-
-        private string GetUserNameByID(string creatorId)
-        {
-            return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(creatorId).UserName;
-        }
-
         private IQueryable<Auction> GetListOfAssAuctions(string id, CommentsContext commentsContext)
         {
+            //returns query that gives auctions that are connected to actual user 
             IQueryable<Auction> auctions;
-            var MaxBids = GetMaxBidsPerUser(ID, commentsContext);
+            var MaxBids = ExtensionMethods.GetMaxBidsPerUser(ID, commentsContext);
             auctions = commentsContext.Auctions.Where(t => t.CreatorId == ID);
             auctions = auctions.Where(t => MaxBids.Contains(t.Id));
             return auctions;
         }
 
-        private Auction GetAuctionObject(string auctionId)
+        private void RedirectToLoginPage()
         {
-            AuctionContext auctionContext = new AuctionContext();
-            Auction auction = auctionContext.Auctions.Where(s => s.Id == auctionId).SingleOrDefault();
-            return auction;
-        }
-
-        private List<string> GetMaxBidsPerUser(string id, CommentsContext context)
-        {
-            List<BidsModel> bids = context.Bids.Where(x => x.UserId == id).ToList();
-            var maxBids = from e in bids
-                          group e by e.UserId into Auct
-                          let top = Auct.Max(x => x.Value)
-                          select new BidsModel
-                          {
-                              UserId = Auct.Key,
-                              AuctionId = Auct.First(y => y.Value == top).AuctionId,
-                              Value = top,
-                              Id = Auct.First(y => y.Value == top).Id,
-                          };
-            return maxBids.Select(t=>t.AuctionId).ToList();
-              
+            Response.Redirect("/Account/Login");
         }
 
         protected void AddComment_Click(object sender, EventArgs e)
         {
-
+            //Todo
         }
     }
 }

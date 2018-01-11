@@ -140,3 +140,7 @@ C:\Users\Administrator\Documents\a\a\AHWForm\AHWForm\bin\MoreLinq.dll
 C:\Users\Administrator\Documents\a\a\AHWForm\AHWForm\bin\System.ValueTuple.dll
 C:\Users\Administrator\Documents\a\a\AHWForm\AHWForm\bin\MoreLinq.xml
 C:\Users\Administrator\Documents\a\a\AHWForm\AHWForm\bin\System.ValueTuple.xml
+C:\Users\User\Documents\a\AHWForm\AHWForm\bin\MoreLinq.dll
+C:\Users\User\Documents\a\AHWForm\AHWForm\bin\System.ValueTuple.dll
+C:\Users\User\Documents\a\AHWForm\AHWForm\bin\MoreLinq.xml
+C:\Users\User\Documents\a\AHWForm\AHWForm\bin\System.ValueTuple.xml

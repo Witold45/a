@@ -26,7 +26,7 @@ namespace AHWForm
             
             AuctionContext auctionContext = new AuctionContext();
             IQueryable<Auction> ls;
-            
+            //Redirect when v is null
             List<string> allCats = GetChildrens(v);
             allCats.Add(v);
             List<string> allCatsN = allCats.ConvertAll<string>(delegate(string x) { return x; });
@@ -36,6 +36,7 @@ namespace AHWForm
 
         private List<string> GetChildrens(string id)
         {
+
             AuctionContext ac = new AuctionContext();
             Category cat = ac.Categories.Where(x => x.Id == id).SingleOrDefault();
             List<string> allChildrenList = new List<string>();

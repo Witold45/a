@@ -1,4 +1,4 @@
-﻿using AHWForm.Models;
+using AHWForm.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -17,7 +17,6 @@ namespace AHWForm
             //Todo handle empty or wrong auction data
             if (!Page.IsPostBack)
             {
-                InitUI();
                 Auction auction = GetAuction(Request.QueryString["Id"]);
                 if (auction != null)
                     setProperties(auction);
@@ -37,7 +36,7 @@ namespace AHWForm
             AuctionCreatedLabel.Text = auction.DateCreated.ToString();
             if (!auction.IsEnded) {
                 AuctionExpiresLabel.Text = auction.DateCreated.AddDays(auction.ExpiresIn).ToString();
-                if (auction.CreatorId != HttpContext.Current.User.Identity.GetUserId())
+                if (auction.CreatorId == HttpContext.Current.User.Identity.GetUserId())
                     Bid.Visible = true;
                 else
                     Bid.Visible = false;
@@ -85,8 +84,9 @@ namespace AHWForm
                 Response.Redirect("~/Account/Login.aspx"); 
             else
                 Response.Redirect("Bid?Id=" + (Request.QueryString["Id"]));
+            
         }
 
 
     }
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

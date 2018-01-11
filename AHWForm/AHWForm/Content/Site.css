@@ -9,9 +9,17 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    overflow: hidden;
     
-    
-    width:auto;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.main-page-image {
+   
+    width: 20%;
+   align-self: center;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

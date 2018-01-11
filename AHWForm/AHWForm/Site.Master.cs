@@ -20,7 +20,7 @@ namespace AHWForm
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
-        private System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = true };
+        private System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = false };
 
 
         protected void Page_Init(object sender, EventArgs e)

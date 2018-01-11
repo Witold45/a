@@ -210,6 +210,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Images\UnderConstruction.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CustomScripts.js" />
@@ -410,6 +411,8 @@
     <Compile Include="Bid.aspx.designer.cs">
       <DependentUpon>Bid.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes_And_Interfaces\ExtensionMethods.cs" />
+    <Compile Include="Classes_And_Interfaces\IExtensionMethods.cs" />
     <Compile Include="Models\ExtendentComments.cs" />
     <Compile Include="CommentSite.aspx.cs">
       <DependentUpon>CommentSite.aspx</DependentUpon>
