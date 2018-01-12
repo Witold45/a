@@ -6,10 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AHWForm.Classes_And_Interfaces;
 
 namespace AHWForm
 {
-    public partial class CreateAuction : System.Web.UI.Page
+    public partial class CreateAuction : System.Web.UI.Page, IExtensionMethods
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,8 +19,8 @@ namespace AHWForm
             
             if (!this.IsPostBack)
             {
-                var categories = GetCategories();
-                PopulateNodes(categories, NewAuctionTreeView);
+                var categories = ExtensionMethods.GetCategories();
+                ExtensionMethods.PopulateNodes(categories, NewAuctionTreeView);
                 NewAuctionTreeView.CollapseAll();
                 for(int i = 1; i < 14; i++)
                 {
@@ -35,6 +36,7 @@ namespace AHWForm
 
         protected void PassNewAuctionButton_Click(object sender, EventArgs e)
         {
+            //If everything is fine create new auction and redirect to it 
             if (User.Identity.IsAuthenticated)
             { 
                 AuctionContext auctionContext = new AuctionContext();
@@ -61,42 +63,6 @@ namespace AHWForm
             {
                 Response.Redirect("/Account/Login");
             }
-        }
-
-        private void PopulateNodes(List<Category> categories, TreeView tw)
-        {
-            foreach (var item in categories)
-            {
-                if (item.ParentCategoryId == null)
-                {
-                    var rootNode = new TreeNode(item.Name, item.Id.ToString());
-                    AddChildren(categories, rootNode);
-                    tw.Nodes.Add(rootNode);
-                }
-
-            }
-        }
-
-        private void AddChildren(List<Category> categories, TreeNode activeTreeNode)
-        {
-            foreach (var item in categories)
-            {
-                if (item.ParentCategoryId == activeTreeNode.Value)
-                {
-                    TreeNode tn = new TreeNode(item.Name, item.Id.ToString());
-
-                    AddChildren(categories, tn);
-                    activeTreeNode.ChildNodes.Add(tn);
-                }
-            }
-
-        }
-
-        protected List<Category> GetCategories()
-        {
-            CategoryContext catContext = new CategoryContext();
-            var ls = catContext.Categories.ToList();
-            return ls;
         }
     }
 }

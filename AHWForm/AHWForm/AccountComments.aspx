@@ -16,7 +16,7 @@
                 <td><asp:HyperLink runat="server" NavigateUrl='<%# Eval("SellerUrl") %>' ><%# Eval("SellerName") %></asp:HyperLink></td>
                 <td><%# Eval("Rate") %></td>
                 <td><%# Eval("Comment") %></td>    
-                <td><asp:Button ID="AddComment" runat="server" OnClick="AddComment_Click"/></td>
+                <%--<td><asp:Button ID="AddComment" runat="server" OnClick="AddComment_Click"/></td>--%>
             </tr>
         </ItemTemplate>
         <LayoutTemplate>

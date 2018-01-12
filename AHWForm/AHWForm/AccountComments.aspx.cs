@@ -65,9 +65,5 @@ namespace AHWForm
             Response.Redirect("/Account/Login");
         }
 
-        protected void AddComment_Click(object sender, EventArgs e)
-        {
-            //Todo
-        }
     }
 }

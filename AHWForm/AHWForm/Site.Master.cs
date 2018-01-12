@@ -12,15 +12,14 @@ using System.Linq;
 using System.Data;
 using System.Data.Linq;
 using MoreLinq;
-
+using AHWForm.Classes_And_Interfaces;
 namespace AHWForm
 {
-    public partial class SiteMaster : MasterPage
+    public partial class SiteMaster : MasterPage, IExtensionMethods
     {
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
-        private System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = false };
 
 
         protected void Page_Init(object sender, EventArgs e)
@@ -53,69 +52,8 @@ namespace AHWForm
             }
 
             Page.PreLoad += master_Page_PreLoad;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
         }
 
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            AuctionContext ac = new AuctionContext();
-            BidContext bc = new BidContext();
-            foreach(Auction item in ac.Auctions)
-            {
-                if(DateTime.Now >= item.DateCreated.AddDays(item.ExpiresIn))
-                {
-                    item.IsEnded = true;
-                    item.WinnerId = SetWinnerID(item);
-                }
-
-                BidsModel MaxBid = GetMaxBidOfAuction(item.Id, bc, item);
-                if(MaxBid != null)
-                {
-                    item.EndingPrice = MaxBid.Value;
-                }
-
-            }
-
-
-            ac.SaveChanges();
-
-
-        }
-
-        private BidsModel GetMaxBidOfAuction(string id, BidContext context, Auction auction)
-        {
-            List<BidsModel> bids = context.Bids.Where(x => x.AuctionId == id).ToList();
-            if (bids.Count > 0)
-            {
-                BidsModel bm = bids.MaxBy(x => x.Value);
-                return bm;
-            }
-            else
-                return null;
-        }
-
-        private string SetWinnerID(Auction auc)
-        {
-            BidContext bc = new BidContext();
-            BidsModel bm = GetMaxBidOfAuction(auc.Id, bc);
-            if (bm != null)
-                return bm.AuctionId;
-            else
-                return null;
-        }
-
-        private BidsModel GetMaxBidOfAuction (string id, BidContext context)
-        {
-            List<BidsModel> bids = context.Bids.Where(x => x.AuctionId == id).ToList();
-            if (bids.Count > 0)
-            {
-                BidsModel bm = bids.MaxBy(x => x.Value);
-                return bm;
-            }
-            else
-                return null;
-        }
 
         protected void master_Page_PreLoad(object sender, EventArgs e)
         {
@@ -140,40 +78,11 @@ namespace AHWForm
         {
             if(!this.IsPostBack)
             {
-                var categories = GetCategories();
+                var categories = ExtensionMethods.GetCategories();
 
-                PopulateNodes(categories, CategoriesTreeView);
+                ExtensionMethods.PopulateNodes(categories, CategoriesTreeView);
                 CategoriesTreeView.CollapseAll();
             }
-        }
-
-
-        private void PopulateNodes(List<Category> categories, TreeView tw)
-        {
-            foreach (var item in categories)
-            {
-                if (item.ParentCategoryId == null)
-                {
-                    var rootNode = new TreeNode(item.Name, item.Id.ToString());
-                    AddChildren(categories, rootNode);
-                    tw.Nodes.Add(rootNode);
-                }
-            }
-        }
-
-        private void AddChildren(List<Category> categories, TreeNode activeTreeNode)
-        {
-            foreach (var item in categories)
-            {
-                if (item.ParentCategoryId == activeTreeNode.Value)
-                {
-                    TreeNode tn = new TreeNode(item.Name, item.Id.ToString());
-
-                    AddChildren(categories, tn);
-                    activeTreeNode.ChildNodes.Add(tn);
-                }
-            }
-
         }
 
 
@@ -181,14 +90,6 @@ namespace AHWForm
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
-
-        protected List<Category> GetCategories()
-        {
-            CategoryContext catContext = new CategoryContext();
-            var ls = catContext.Categories.ToList();
-            return ls;       
-        }
-
 
         protected void CategoriesTreeView_OnSelectedNodeChanged(object sender, EventArgs e)
         {

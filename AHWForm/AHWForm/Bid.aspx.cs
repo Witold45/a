@@ -8,68 +8,81 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AHWForm.Classes_And_Interfaces;
 
 namespace AHWForm
 {
-    public partial class Bid : System.Web.UI.Page
+    public partial class Bid : System.Web.UI.Page, IExtensionMethods
     {
         BidContext bidContext = new BidContext();
         private string Id;
         protected void Page_Load(object sender, EventArgs e)
         {
             Id = Request.QueryString["Id"];
-            if (!CheckIfAuctionExist(Id,bidContext))
+            if (!ExtensionMethods.CheckIfAuctionExist(Id,bidContext))
                 Response.Redirect("/");
 
         }
 
         protected void BidSecond_Click(object sender, EventArgs e)
         {
-            //ToRefactor
-            //Add code that prevent bidCreator from bidding his own auction
+            //Checking if textbox contains only numbers
                 if (!System.Text.RegularExpressions.Regex.IsMatch(priceTextBox.Text, "[^0-9]"))
                 {
+                //Checking if value is right
                     if (PriceRange(priceTextBox.Text))
                     {  
                         Auction auction = bidContext.Auctions.Where(x => x.Id == Id).SingleOrDefault();
-                    decimal price = Decimal.Parse(priceTextBox.Text);   
-
-                    if (price > GetMaxBidOfAuction(Id, bidContext, auction))
+                        decimal price = Decimal.Parse(priceTextBox.Text);
+                    //checking if bid is not to low
+                    //If there is no bid pass bid
+                    var maxBid = ExtensionMethods.GetMaxBidOfAuction(Id, bidContext, auction);
+                    if (maxBid != null)
                     {
-                        priceTextBox.BackColor = System.Drawing.Color.Empty;
-                        BidsModel bidsModel = new BidsModel()
+                        if (price > maxBid.Value)
                         {
-                            AuctionId = Id,
-                            UserId = HttpContext.Current.User.Identity.GetUserId(),
-                            Id = Guid.NewGuid().ToString(),
-                            Value = price,
-                        };
-
-                        bidContext.Bids.Add(bidsModel);
-                        bidContext.SaveChanges();
-                        
-                        Response.Redirect("/AuctionDetails?Id=" + Id);
+                            PassAuction(price);
                         }
+                        else
+                        {
+                            //throw info that your bid is too low
+                            priceTextBox.BackColor = System.Drawing.Color.Red;
+                        }
+
+                    }
                     else
                     {
-                        //throw info that your bid is too low
-                        priceTextBox.BackColor = System.Drawing.Color.Red;
+                        PassAuction(price);
                     }
                 }
                 }
                 else
                 {
-                    //throw info that format is wrong
+                            priceTextBox.BackColor = System.Drawing.Color.Red;
                 }       
         }
 
-        private bool CheckIfAuctionExist(string id, BidContext bidContext)
+        private void PassAuction(decimal price)
         {
-            return bidContext.Auctions.Any(x => x.Id == id);
+            priceTextBox.BackColor = System.Drawing.Color.Empty;
+            BidsModel bidsModel = new BidsModel()
+            {
+                AuctionId = Id,
+                UserId = HttpContext.Current.User.Identity.GetUserId(),
+                Id = Guid.NewGuid().ToString(),
+                Value = price,
+            };
+
+            bidContext.Bids.Add(bidsModel);
+            bidContext.SaveChanges();
+
+            ExtensionMethods.RefreshDB();
+            Response.Redirect("/AuctionDetails?Id=" + Id);
         }
 
         private bool PriceRange(string text)
         {
+            //returns false if price is wrong or under 0
             decimal price;
             try
             {
@@ -84,17 +97,7 @@ namespace AHWForm
             return true;
         }
 
-        private decimal GetMaxBidOfAuction(string id, BidContext context, Auction auction)
-        {
-            List<BidsModel> bids = context.Bids.Where(x => x.AuctionId == id).ToList();
-            if (bids.Count > 0)
-            {
-                BidsModel bm = bids.MaxBy(x => x.Value);
-                return bm.Value;
-            }
-            else
-                return auction.EndingPrice;
-        }
+        
 
 
     }

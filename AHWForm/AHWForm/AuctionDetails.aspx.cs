@@ -7,17 +7,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AHWForm.Classes_And_Interfaces;
 
 namespace AHWForm
 {
-    public partial class AuctionDetails : System.Web.UI.Page
+    public partial class AuctionDetails : System.Web.UI.Page, IExtensionMethods
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             //Todo handle empty or wrong auction data
             if (!Page.IsPostBack)
             {
-                Auction auction = GetAuction(Request.QueryString["Id"]);
+                Auction auction = ExtensionMethods.GetAuction(Request.QueryString["Id"]);
                 if (auction != null)
                     setProperties(auction);
                 else
@@ -27,16 +28,17 @@ namespace AHWForm
 
         private void setProperties(Auction auction)
         {
+            //Setting properties in current site
             AuctionTitle.Text = auction.Title;
             AuctionShortDescription.Text = auction.Description;
             AuctionLongDescription.Text = auction.LongDescription;
             
             Price.Text = auction.EndingPrice.ToString("G");
-            CreatorName.Text = GetUserNameByID(auction.CreatorId);
+            CreatorName.Text = ExtensionMethods.GetUserNameByID(auction.CreatorId);
             AuctionCreatedLabel.Text = auction.DateCreated.ToString();
             if (!auction.IsEnded) {
                 AuctionExpiresLabel.Text = auction.DateCreated.AddDays(auction.ExpiresIn).ToString();
-                if (auction.CreatorId == HttpContext.Current.User.Identity.GetUserId())
+                if (auction.CreatorId != HttpContext.Current.User.Identity.GetUserId())
                     Bid.Visible = true;
                 else
                     Bid.Visible = false;
@@ -49,32 +51,6 @@ namespace AHWForm
                 Bid.Visible = false;
             }
 
-        }
-
-        private string GetUserNameByID(string creatorId)
-        {
-            return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(creatorId).UserName;
-        }
-
-        private void InitUI()
-        {
-            //AuctionTitle.Font.Size = 34;
-        }
-
-        private Auction GetAuction(string id)
-        {
-            try
-            {
-                
-                AuctionContext auctionContext = new AuctionContext();
-                Auction actAuction = auctionContext.Auctions.Where(s => s.Id == id).SingleOrDefault();
-                return actAuction;
-            }
-            catch
-            {
-                return null;
-            }
-            
         }
 
         protected void Bid_Click(object sender, EventArgs e)
